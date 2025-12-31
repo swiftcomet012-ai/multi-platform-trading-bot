@@ -1,0 +1,76 @@
+# Kubernetes Deployment for Trading Platform
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trading-bot
+  labels:
+    app: trading-bot
+spec:
+  replicas: 1  # Single instance for trading
+  selector:
+    matchLabels:
+      app: trading-bot
+  template:
+    metadata:
+      labels:
+        app: trading-bot
+    spec:
+      containers:
+        - name: trading-bot
+          image: trading-platform:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          envFrom:
+            - secretRef:
+                name: trading-secrets
+            - configMapRef:
+                name: trading-config
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: trading-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trading-bot-service
+spec:
+  selector:
+    app: trading-bot
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trading-config
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  PAPER_MODE: "false"
+  MAX_POSITION_PCT: "0.05"
+  MAX_DAILY_LOSS_PCT: "0.03"
