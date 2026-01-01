@@ -236,7 +236,7 @@ class AuditLogModel(Base):
     entity_id: Mapped[str | None] = mapped_column(String(50), nullable=True)
     old_value: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON
     new_value: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON
-    metadata: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON
+    extra_data: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON (renamed from metadata - reserved)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=func.now()
     )
@@ -252,6 +252,6 @@ class AuditLogModel(Base):
             "entity_id": self.entity_id,
             "old_value": self.old_value,
             "new_value": self.new_value,
-            "metadata": self.metadata,
+            "extra_data": self.extra_data,
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
