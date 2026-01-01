@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import hashlib
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import ROUND_DOWN, Decimal
 from typing import TypeVar
 from uuid import uuid4
@@ -40,7 +40,7 @@ def generate_idempotency_key(symbol: str, side: str, quantity: str, timestamp: i
 
 def utc_now() -> datetime:
     """Get current UTC datetime."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def timestamp_ms() -> int:

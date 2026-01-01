@@ -7,13 +7,10 @@ All financial values stored as TEXT to preserve Decimal precision.
 from __future__ import annotations
 
 from datetime import datetime
-from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import (
-    Boolean,
     DateTime,
-    ForeignKey,
     Index,
     Integer,
     String,
@@ -21,7 +18,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from packages.data_store.src.database import Base
 

@@ -19,7 +19,6 @@ from packages.data_store.src.models import (
     ExchangeInfoModel,
     OHLCVModel,
     SignalModel,
-    StrategyPerformanceModel,
     TradeModel,
 )
 from packages.shared.src.models import (
