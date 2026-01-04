@@ -25,8 +25,8 @@ def generate_correlation_id() -> str:
 
 
 def add_context(
-    logger: structlog.types.WrappedLogger,
-    method_name: str,
+    logger: structlog.types.WrappedLogger,  # noqa: ARG001
+    method_name: str,  # noqa: ARG001
     event_dict: dict[str, Any],
 ) -> dict[str, Any]:
     """Add context variables to log events."""

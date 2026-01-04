@@ -4,14 +4,17 @@ Database connection and session management using SQLAlchemy.
 
 from __future__ import annotations
 
-from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from typing import TYPE_CHECKING
 
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
 from packages.shared.src.config import get_settings
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator
 
 
 class Base(DeclarativeBase):
@@ -53,7 +56,7 @@ class Database:
         # Enable foreign keys for SQLite
         if "sqlite" in self._url:
             @event.listens_for(self._engine.sync_engine, "connect")
-            def set_sqlite_pragma(dbapi_connection, connection_record):
+            def set_sqlite_pragma(dbapi_connection, connection_record):  # noqa: ARG001
                 cursor = dbapi_connection.cursor()
                 cursor.execute("PRAGMA foreign_keys=ON")
                 cursor.close()
@@ -103,7 +106,7 @@ _db: Database | None = None
 
 def get_database() -> Database:
     """Get the global database instance."""
-    global _db
+    global _db  # noqa: PLW0603
     if _db is None:
         _db = Database()
     return _db
@@ -111,7 +114,7 @@ def get_database() -> Database:
 
 async def init_database(url: str | None = None) -> Database:
     """Initialize the database and create tables."""
-    global _db
+    global _db  # noqa: PLW0603
     _db = Database(url=url)
     await _db.create_tables()
     return _db
@@ -119,7 +122,7 @@ async def init_database(url: str | None = None) -> Database:
 
 async def close_database() -> None:
     """Close the database connection."""
-    global _db
+    global _db  # noqa: PLW0603
     if _db is not None:
         await _db.close()
         _db = None

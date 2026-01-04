@@ -20,7 +20,9 @@ def generate_id(prefix: str = "") -> str:
     return f"{prefix}_{uid}" if prefix else uid
 
 
-def generate_idempotency_key(symbol: str, side: str, quantity: str, timestamp: int | None = None) -> str:
+def generate_idempotency_key(
+    symbol: str, side: str, quantity: str, timestamp: int | None = None
+) -> str:
     """
     Generate idempotency key for order deduplication.
 
@@ -133,12 +135,14 @@ def format_percentage(value: float, precision: int = 2) -> str:
     return f"{sign}{value:.{precision}f}%"
 
 
-def chunk_list(lst: list[T], chunk_size: int) -> list[list[T]]:
+def chunk_list[T](lst: list[T], chunk_size: int) -> list[list[T]]:
     """Split list into chunks of specified size."""
     return [lst[i : i + chunk_size] for i in range(0, len(lst), chunk_size)]
 
 
-def safe_divide(numerator: Decimal, denominator: Decimal, default: Decimal = Decimal("0")) -> Decimal:
+def safe_divide(
+    numerator: Decimal, denominator: Decimal, default: Decimal = Decimal("0")
+) -> Decimal:
     """Safely divide two decimals, returning default if denominator is zero."""
     if denominator == 0:
         return default

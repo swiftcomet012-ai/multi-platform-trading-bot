@@ -6,7 +6,7 @@ All financial values use Decimal for precision.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime  # noqa: TC003 - Required at runtime for msgspec
 from decimal import Decimal
 from enum import Enum
 

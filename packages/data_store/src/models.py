@@ -6,7 +6,7 @@ All financial values stored as TEXT to preserve Decimal precision.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime  # noqa: TC003 - Required at runtime for SQLAlchemy
 from typing import Any
 
 from sqlalchemy import (
@@ -233,7 +233,9 @@ class AuditLogModel(Base):
     entity_id: Mapped[str | None] = mapped_column(String(50), nullable=True)
     old_value: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON
     new_value: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON
-    extra_data: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON (renamed from metadata - reserved)
+    extra_data: Mapped[str | None] = mapped_column(
+        Text, nullable=True
+    )  # JSON (renamed from metadata - reserved)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=func.now()
     )

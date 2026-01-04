@@ -7,12 +7,12 @@ Provides CRUD operations with Decimal precision preservation.
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import datetime  # noqa: TC003 - Required at runtime
 from decimal import Decimal
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from sqlalchemy import delete, select, update
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession  # noqa: TC002 - Required at runtime
 
 from packages.data_store.src.models import (
     AuditLogModel,
@@ -34,7 +34,7 @@ from packages.shared.src.models import (
 T = TypeVar("T")
 
 
-class BaseRepository(Generic[T]):
+class BaseRepository[T]:
     """Base repository with common CRUD operations."""
 
     def __init__(self, session: AsyncSession) -> None:
