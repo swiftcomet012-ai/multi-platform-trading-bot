@@ -1,7 +1,13 @@
-"""
-Connectors Package - Exchange connectors for Binance, Exness/MT5.
+"""Exchange connectors package."""
 
-This package provides unified interfaces to interact with different exchanges.
-"""
+from packages.connectors.src import (
+    BaseConnector,
+    BinanceConnector,
+    ExchangeConnector,
+)
 
-__version__ = "0.1.0"
+__all__ = [
+    "BaseConnector",
+    "BinanceConnector",
+    "ExchangeConnector",
+]

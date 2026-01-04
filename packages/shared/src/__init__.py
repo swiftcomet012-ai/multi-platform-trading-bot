@@ -1,5 +1,20 @@
 """Shared source modules."""
 
+from packages.shared.src.circuit_breaker import (
+    CircuitBreaker,
+    CircuitBreakerConfig,
+    CircuitBreakerError,
+    CircuitBreakerRegistry,
+    CircuitState,
+    CircuitStats,
+    ResilientCall,
+    RetryConfig,
+    RetryWithBackoff,
+    circuit_breaker,
+    get_circuit_breaker,
+    resilient,
+    retry_with_backoff,
+)
 from packages.shared.src.config import Settings, get_settings, reload_settings
 from packages.shared.src.exceptions import (
     AIProviderError,
@@ -68,6 +83,13 @@ __all__ = [
     "AITimeoutError",
     "AllProvidersFailedError",
     "AuthenticationError",
+    # Circuit Breaker
+    "CircuitBreaker",
+    "CircuitBreakerConfig",
+    "CircuitBreakerError",
+    "CircuitBreakerRegistry",
+    "CircuitState",
+    "CircuitStats",
     "ConfigurationError",
     "ConnectionError",
     "DailyLossExceededError",
@@ -91,6 +113,9 @@ __all__ = [
     "PositionNotFoundError",
     "RateLimitError",
     "RateLimiter",
+    "ResilientCall",
+    "RetryConfig",
+    "RetryWithBackoff",
     "RiskLimitExceededError",
     # Config
     "Settings",
@@ -105,6 +130,7 @@ __all__ = [
     "calculate_pnl",
     "calculate_position_size",
     "chunk_list",
+    "circuit_breaker",
     "clamp",
     "deserialize",
     "format_currency",
@@ -112,9 +138,12 @@ __all__ = [
     # Utils
     "generate_id",
     "generate_idempotency_key",
+    "get_circuit_breaker",
     "get_logger",
     "get_settings",
     "reload_settings",
+    "resilient",
+    "retry_with_backoff",
     "round_decimal",
     "safe_divide",
     "serialize",

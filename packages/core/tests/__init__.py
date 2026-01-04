@@ -1,1 +1,1 @@
-"""Core package tests."""
+"""Tests for core trading package."""

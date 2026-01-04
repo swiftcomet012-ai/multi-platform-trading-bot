@@ -1,1 +1,1 @@
-"""AI Analyzer package tests."""
+"""Tests for AI analyzer package."""
